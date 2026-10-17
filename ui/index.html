@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>固美特 ERP</title>
+  <link rel="stylesheet" href="./app.css" />
+</head>
+<body>
+  <div id="app">
+    <aside class="side">
+      <div class="brand">
+        <div class="brand-title">固美特 ERP</div>
+        <div id="health" class="health">检测中…</div>
+      </div>
+      <nav class="tabs">
+        <button type="button" data-tab="tools" class="tab active">功能</button>
+        <button type="button" data-tab="recent" class="tab">常用/最近</button>
+        <button type="button" data-tab="history" class="tab">历史</button>
+        <button type="button" data-tab="settings" class="tab">设置</button>
+      </nav>
+      <div id="presets" class="presets"></div>
+      <div class="tool-search-wrap">
+        <input id="tool-search" type="search" placeholder="搜索功能、关键字、英文名" autocomplete="off" />
+        <div id="tool-count" class="tool-count"></div>
+      </div>
+      <div id="tree" class="tree"></div>
+    </aside>
+    <main class="main">
+      <section id="panel-tools" class="panel active">
+        <div id="tool-empty" class="empty">从左侧选择功能，或点场景快捷卡开始。</div>
+        <div id="tool-form" class="tool-form hidden"></div>
+      </section>
+      <section id="panel-recent" class="panel">
+        <h2>常用</h2>
+        <div id="favorites" class="list"></div>
+        <h2>最近使用</h2>
+        <div id="recent" class="list"></div>
+      </section>
+      <section id="panel-history" class="panel">
+        <h2>本插件发起的历史</h2>
+        <div id="history" class="list"></div>
+      </section>
+      <section id="panel-settings" class="panel">
+        <div id="settings" class="settings"></div>
+      </section>
+    </main>
+  </div>
+  <div id="toast" class="toast hidden"></div>
+  <div id="mcp-json-modal" class="modal-mask hidden" aria-hidden="true">
+    <div class="modal-panel" role="dialog" aria-labelledby="mcp-json-modal-title">
+      <h3 id="mcp-json-modal-title">从 JSON 导入 MCP 配置</h3>
+      <p>粘贴厂商提供的 <code>mcpServers</code> JSON，解析后填入下方配置栏位。</p>
+      <div class="field">
+        <label>配置 JSON</label>
+        <textarea id="mcp-json-import" placeholder='{"mcpServers":{"gmt-erp-cloud":{"url":"...","headers":{...}}}}'></textarea>
+      </div>
+      <div class="actions">
+        <button type="button" class="btn primary" id="btn-parse-mcp-json">解析到表单</button>
+        <button type="button" class="btn" id="btn-parse-save-mcp-json">解析并保存</button>
+        <button type="button" class="btn" id="btn-close-mcp-json">取消</button>
+      </div>
+    </div>
+  </div>
+  <script src="./app.js"></script>
+</body>
+</html>

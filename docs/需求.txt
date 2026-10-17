@@ -1,0 +1,15 @@
+现在想开发一个dsh的插件, 主要用于让用户更好地使用我的 @gmtMcp里提供的服务, 程序存放到:D:\Code\nodejs\dsh-plugin-gmt
+目前能想到的方向是:
+1. 图形化的界面, 让用户可以在左侧的目录中增加一个“固美特ERP”的功能目录树, 点开可以展开所有的功能分类, 再展开是具体的工具
+2. 每个功能, 点开后,可以显示图形化的输入界面, 如果功能是格式化的问题, 可以让用户只需输入关键信息
+3. 增加一个常用工具,或最近使用工具的界面, 让用户可以快速查看或打开历史对话内容, 或发起新的对话来使用这个工具
+4. 增加设置页面, 可以启用或禁用某些工具, 安装gmtMcp功能,安装对应的skill功能, 安装常用的第三方插件功能(主要是让用户使用我们的gmtMcp有更好的体验),目前有@changfenhuang/dsh-genui和dsh-mcp-connector
+5. 还有一些你根据其它类似场景或类似项目的好的功能点, 可以发给我看看
+
+写好后, 写一份安装到dsh里的操作说明
+
+cd D:/Code/nodejs/dsh-plugin-gmt
+npm login
+npm config set //registry.npmjs.org/:_authToken=<你的 npm token>
+npm pack --dry-run
+npm publish --access public

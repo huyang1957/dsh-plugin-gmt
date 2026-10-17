@@ -1,0 +1,64 @@
+{
+  "name": "dsh-plugin-gmt",
+  "version": "0.1.12",
+  "description": "固美特 ERP：在 DeepSeek Harness 中图形化使用 gmtMcp（侧栏功能树、工具表单、常用/历史、MCP/技能安装）",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "ui",
+    "assets",
+    "cordis.patch.yml",
+    "README.md",
+    "docs"
+  ],
+  "scripts": {
+    "catalog:sync": "node scripts/sync-catalog.mjs",
+    "catalog:sync:py": "node scripts/sync-catalog.mjs ../python/gmtMcp/app/erp/queries.py",
+    "lint": "node --check lib/index.js && node --check lib/web.js && node --check lib/store.js && node --check lib/mcp.js && node --check lib/skills.js && node --check lib/prompt.js && node --check lib/connector-detect.js && node --check lib/client.js && node --check ui/app.js"
+  },
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "gmt",
+    "erp",
+    "mcp",
+    "固美特"
+  ],
+  "license": "MIT",
+  "author": "huyang1957 <huyang1957@163.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/huyang1957/dsh-plugin-gmt.git"
+  },
+  "homepage": "https://github.com/huyang1957/dsh-plugin-gmt#readme",
+  "bugs": {
+    "url": "https://github.com/huyang1957/dsh-plugin-gmt/issues"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-layout",
+        "@deepseek-ai/dsh-client-ui-conversation"
+      ],
+      "platform": "web"
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

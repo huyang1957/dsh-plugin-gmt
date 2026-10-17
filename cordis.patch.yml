@@ -1,0 +1,8 @@
+# 固美特 ERP 插件（DSH Bundle patch）
+- insert:
+  - id: gmt-erp
+    name: 'dsh-plugin-gmt'
+    config:
+      showSidebarEntry: true
+      connectionName: gmt-erp-cloud
+      defaultMcpUrl: 'https://mcp.f.szgoodmate.com:2443/mcp'

@@ -1,0 +1,1407 @@
+{
+  "version": 1,
+  "updatedAt": "2026-10-04T03:52:06.183Z",
+  "groups": [
+    {
+      "id": "home",
+      "label": "首页"
+    },
+    {
+      "id": "compose",
+      "label": "编排场景"
+    },
+    {
+      "id": "query",
+      "label": "问数主数据"
+    },
+    {
+      "id": "sales",
+      "label": "销售"
+    },
+    {
+      "id": "pmc",
+      "label": "PMC/生产"
+    },
+    {
+      "id": "purchase",
+      "label": "采购"
+    },
+    {
+      "id": "warehouse",
+      "label": "仓库"
+    },
+    {
+      "id": "qc",
+      "label": "品质"
+    },
+    {
+      "id": "finance",
+      "label": "财务"
+    },
+    {
+      "id": "report",
+      "label": "报表"
+    },
+    {
+      "id": "meta",
+      "label": "元能力"
+    }
+  ],
+  "presets": [
+    {
+      "id": "morning",
+      "title": "晨会风险",
+      "tool": "get_exception_digest",
+      "hint": "今天有什么风险"
+    },
+    {
+      "id": "home",
+      "title": "首页待办",
+      "tool": "get_home_todo_notice",
+      "hint": "我的待办和通知"
+    },
+    {
+      "id": "order",
+      "title": "一单全景",
+      "tool": "explain_order",
+      "hint": "客户单号整单情况"
+    },
+    {
+      "id": "playbook",
+      "title": "新单评审",
+      "tool": "run_business_playbook",
+      "hint": "新单评审剧本"
+    },
+    {
+      "id": "chase_po",
+      "title": "催料到货",
+      "tool": "list_supplier_chase",
+      "hint": "催供应商到货"
+    },
+    {
+      "id": "chase_pay",
+      "title": "催款跟进",
+      "tool": "list_collection_followups",
+      "hint": "待催收款"
+    }
+  ],
+  "roles": {
+    "all": {
+      "label": "全部功能",
+      "enabledGroups": []
+    },
+    "boss": {
+      "label": "老板",
+      "enabledGroups": [
+        "home",
+        "compose",
+        "query",
+        "sales",
+        "pmc",
+        "purchase",
+        "warehouse",
+        "qc",
+        "finance",
+        "report",
+        "meta"
+      ]
+    },
+    "sales": {
+      "label": "销售",
+      "enabledGroups": [
+        "home",
+        "compose",
+        "query",
+        "sales",
+        "meta"
+      ]
+    },
+    "pmc": {
+      "label": "计划/PMC",
+      "enabledGroups": [
+        "home",
+        "compose",
+        "query",
+        "pmc",
+        "purchase",
+        "warehouse",
+        "meta"
+      ]
+    },
+    "purchase": {
+      "label": "采购",
+      "enabledGroups": [
+        "home",
+        "purchase",
+        "query",
+        "pmc",
+        "meta"
+      ]
+    },
+    "finance": {
+      "label": "财务",
+      "enabledGroups": [
+        "home",
+        "finance",
+        "sales",
+        "meta"
+      ]
+    }
+  },
+  "tools": [
+    {
+      "name": "query_stock",
+      "title": "库存查询",
+      "description": "库存查询（含批次/出入库；支持 date_from~date_to）",
+      "group": "query",
+      "readonly": true,
+      "warning": null,
+      "fields": [
+        {
+          "key": "date_from",
+          "label": "开始日期",
+          "type": "date"
+        },
+        {
+          "key": "date_to",
+          "label": "结束日期",
+          "type": "date"
+        },
+        {
+          "key": "PartNo",
+          "label": "料号",
+          "type": "text"
+        },
+        {
+          "key": "keyword",
+          "label": "关键词",
+          "type": "text",
+          "placeholder": "单号/料号/客户等"
+        },
+        {
+          "key": "limit",
+          "label": "条数",
+          "type": "number",
+          "default": 50
+        },
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    },
+    {
+      "name": "query_sale_order",
+      "title": "销售订单",
+      "description": "销售订单（支持 date_from~date_to，默认 OrderDate）",
+      "group": "query",
+      "readonly": true,
+      "warning": null,
+      "fields": [
+        {
+          "key": "date_from",
+          "label": "开始日期",
+          "type": "date"
+        },
+        {
+          "key": "date_to",
+          "label": "结束日期",
+          "type": "date"
+        },
+        {
+          "key": "CustomerNo",
+          "label": "客户编号",
+          "type": "text"
+        },
+        {
+          "key": "CustOrderNo",
+          "label": "客户单号",
+          "type": "text"
+        },
+        {
+          "key": "OrderNo",
+          "label": "订单号",
+          "type": "text"
+        },
+        {
+          "key": "keyword",
+          "label": "关键词",
+          "type": "text",
+          "placeholder": "单号/料号/客户等"
+        },
+        {
+          "key": "limit",
+          "label": "条数",
+          "type": "number",
+          "default": 50
+        },
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    },
+    {
+      "name": "query_purchase_order",
+      "title": "采购订单",
+      "description": "采购订单（支持 date_from~date_to，默认 OrderDate）",
+      "group": "query",
+      "readonly": true,
+      "warning": null,
+      "fields": [
+        {
+          "key": "date_from",
+          "label": "开始日期",
+          "type": "date"
+        },
+        {
+          "key": "date_to",
+          "label": "结束日期",
+          "type": "date"
+        },
+        {
+          "key": "SupplierNo",
+          "label": "供应商编号",
+          "type": "text"
+        },
+        {
+          "key": "PurchaseNo",
+          "label": "采购单号",
+          "type": "text"
+        },
+        {
+          "key": "PartNo",
+          "label": "料号",
+          "type": "text"
+        },
+        {
+          "key": "keyword",
+          "label": "关键词",
+          "type": "text",
+          "placeholder": "单号/料号/客户等"
+        },
+        {
+          "key": "limit",
+          "label": "条数",
+          "type": "number",
+          "default": 50
+        },
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    },
+    {
+      "name": "query_part_info",
+      "title": "料号主数据",
+      "description": "料号主数据（支持 date_from~date_to）",
+      "group": "query",
+      "readonly": true,
+      "warning": null,
+      "fields": [
+        {
+          "key": "PartNo",
+          "label": "料号",
+          "type": "text"
+        },
+        {
+          "key": "keyword",
+          "label": "关键词",
+          "type": "text",
+          "placeholder": "单号/料号/客户等"
+        },
+        {
+          "key": "limit",
+          "label": "条数",
+          "type": "number",
+          "default": 50
+        },
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    },
+    {
+      "name": "query_bom",
+      "title": "BOM 查询",
+      "description": "BOM查询含下阶（支持 date_from~date_to）",
+      "group": "query",
+      "readonly": true,
+      "warning": null,
+      "fields": [
+        {
+          "key": "PartNo",
+          "label": "料号",
+          "type": "text"
+        },
+        {
+          "key": "keyword",
+          "label": "关键词",
+          "type": "text",
+          "placeholder": "单号/料号/客户等"
+        },
+        {
+          "key": "limit",
+          "label": "条数",
+          "type": "number",
+          "default": 50
+        },
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    },
+    {
+      "name": "query_order_all",
+      "title": "订单综合",
+      "description": "订单综合+工序进度（支持 date_from~date_to）",
+      "group": "query",
+      "readonly": true,
+      "warning": null,
+      "fields": [
+        {
+          "key": "date_from",
+          "label": "开始日期",
+          "type": "date"
+        },
+        {
+          "key": "date_to",
+          "label": "结束日期",
+          "type": "date"
+        },
+        {
+          "key": "CustOrderNo",
+          "label": "客户单号",
+          "type": "text"
+        },
+        {
+          "key": "OrderNo",
+          "label": "订单号",
+          "type": "text"
+        },
+        {
+          "key": "WorkOrderNo",
+          "label": "工令号",
+          "type": "text"
+        },
+        {
+          "key": "keyword",
+          "label": "关键词",
+          "type": "text",
+          "placeholder": "单号/料号/客户等"
+        },
+        {
+          "key": "limit",
+          "label": "条数",
+          "type": "number",
+          "default": 50
+        },
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    },
+    {
+      "name": "query_manu_progress",
+      "title": "生产进度",
+      "description": "生产进度（支持 date_from~date_to，默认 Deadline）",
+      "group": "pmc",
+      "readonly": true,
+      "warning": null,
+      "fields": [
+        {
+          "key": "date_from",
+          "label": "开始日期",
+          "type": "date"
+        },
+        {
+          "key": "date_to",
+          "label": "结束日期",
+          "type": "date"
+        },
+        {
+          "key": "WorkOrderNo",
+          "label": "工令号",
+          "type": "text"
+        },
+        {
+          "key": "PartNo",
+          "label": "料号",
+          "type": "text"
+        },
+        {
+          "key": "keyword",
+          "label": "关键词",
+          "type": "text",
+          "placeholder": "单号/料号/客户等"
+        },
+        {
+          "key": "limit",
+          "label": "条数",
+          "type": "number",
+          "default": 50
+        },
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    },
+    {
+      "name": "query_shortage",
+      "title": "缺料预警",
+      "description": "缺料/安全库存报警（不是齐套；齐套用 query_vir_stock）",
+      "group": "pmc",
+      "readonly": true,
+      "warning": "这是缺料/安全库存报警，不是齐套。齐套请用 query_vir_stock。",
+      "fields": [
+        {
+          "key": "date_from",
+          "label": "开始日期",
+          "type": "date"
+        },
+        {
+          "key": "date_to",
+          "label": "结束日期",
+          "type": "date"
+        },
+        {
+          "key": "PartNo",
+          "label": "料号",
+          "type": "text"
+        },
+        {
+          "key": "keyword",
+          "label": "关键词",
+          "type": "text",
+          "placeholder": "单号/料号/客户等"
+        },
+        {
+          "key": "limit",
+          "label": "条数",
+          "type": "number",
+          "default": 50
+        },
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    },
+    {
+      "name": "query_qc_exception",
+      "title": "品质异常",
+      "description": "品质异常（支持 date_from~date_to，默认 HappenDate）",
+      "group": "qc",
+      "readonly": true,
+      "warning": null,
+      "fields": [
+        {
+          "key": "date_from",
+          "label": "开始日期",
+          "type": "date"
+        },
+        {
+          "key": "date_to",
+          "label": "结束日期",
+          "type": "date"
+        },
+        {
+          "key": "PartNo",
+          "label": "料号",
+          "type": "text"
+        },
+        {
+          "key": "keyword",
+          "label": "关键词",
+          "type": "text",
+          "placeholder": "单号/料号/客户等"
+        },
+        {
+          "key": "limit",
+          "label": "条数",
+          "type": "number",
+          "default": 50
+        },
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    },
+    {
+      "name": "list_pending_purchase",
+      "title": "待下采购",
+      "description": "查询待下采购物料清单",
+      "group": "purchase",
+      "readonly": true,
+      "warning": null,
+      "fields": [
+        {
+          "key": "PartNo",
+          "label": "料号",
+          "type": "text"
+        },
+        {
+          "key": "keyword",
+          "label": "关键词",
+          "type": "text",
+          "placeholder": "单号/料号/客户等"
+        },
+        {
+          "key": "limit",
+          "label": "条数",
+          "type": "number",
+          "default": 50
+        },
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    },
+    {
+      "name": "create_purchase_drafts",
+      "title": "生成采购草稿",
+      "description": "生成采购草稿（需 confirm=true；不自动审核）",
+      "group": "purchase",
+      "readonly": false,
+      "warning": "写操作：默认仅预览；确认生成时需勾选 confirm，且不会自动审核。",
+      "fields": [
+        {
+          "key": "purchase_ids",
+          "label": "待采行 ID（逗号分隔）",
+          "type": "text",
+          "placeholder": "来自 list_pending_purchase"
+        },
+        {
+          "key": "confirm",
+          "label": "确认生成草稿",
+          "type": "checkbox",
+          "default": false
+        },
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    },
+    {
+      "name": "list_purchase_process",
+      "title": "采购进度",
+      "description": "采购进度（支持 date_from~date_to）",
+      "group": "purchase",
+      "readonly": true,
+      "warning": null,
+      "fields": [
+        {
+          "key": "date_from",
+          "label": "开始日期",
+          "type": "date"
+        },
+        {
+          "key": "date_to",
+          "label": "结束日期",
+          "type": "date"
+        },
+        {
+          "key": "SupplierNo",
+          "label": "供应商编号",
+          "type": "text"
+        },
+        {
+          "key": "PurchaseNo",
+          "label": "采购单号",
+          "type": "text"
+        },
+        {
+          "key": "keyword",
+          "label": "关键词",
+          "type": "text",
+          "placeholder": "单号/料号/客户等"
+        },
+        {
+          "key": "limit",
+          "label": "条数",
+          "type": "number",
+          "default": 50
+        },
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    },
+    {
+      "name": "get_po_lines",
+      "title": "采购明细",
+      "description": "按采购单号查明细（可 date_from~date_to）",
+      "group": "purchase",
+      "readonly": true,
+      "warning": null,
+      "fields": [
+        {
+          "key": "PurchaseNo",
+          "label": "采购单号",
+          "type": "text"
+        },
+        {
+          "key": "date_from",
+          "label": "开始日期",
+          "type": "date"
+        },
+        {
+          "key": "date_to",
+          "label": "结束日期",
+          "type": "date"
+        },
+        {
+          "key": "limit",
+          "label": "条数",
+          "type": "number",
+          "default": 50
+        },
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    },
+    {
+      "name": "lookup_recent_price",
+      "title": "近期采购价",
+      "description": "近期采购量价（可 date_from~date_to）",
+      "group": "purchase",
+      "readonly": true,
+      "warning": null,
+      "fields": [
+        {
+          "key": "PartNo",
+          "label": "料号",
+          "type": "text"
+        },
+        {
+          "key": "date_from",
+          "label": "开始日期",
+          "type": "date"
+        },
+        {
+          "key": "date_to",
+          "label": "结束日期",
+          "type": "date"
+        },
+        {
+          "key": "limit",
+          "label": "条数",
+          "type": "number",
+          "default": 50
+        },
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    },
+    {
+      "name": "get_dept_work_summary",
+      "title": "部门日报汇总",
+      "description": "各部门日报/区间汇总（销售/技术/计划/采购/仓库/生产；date 或 date_from~date_to；含 AI 报表提示词）",
+      "group": "report",
+      "readonly": true,
+      "warning": null,
+      "fields": [
+        {
+          "key": "date",
+          "label": "单日",
+          "type": "date"
+        },
+        {
+          "key": "date_from",
+          "label": "开始日期",
+          "type": "date"
+        },
+        {
+          "key": "date_to",
+          "label": "结束日期",
+          "type": "date"
+        },
+        {
+          "key": "dept",
+          "label": "部门（销售/技术/计划/采购/仓库/生产）",
+          "type": "text"
+        },
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    },
+    {
+      "name": "get_home_todo_notice",
+      "title": "首页待办通知",
+      "description": "首页待办事项+系统通知（showToDoList / showSystemNoticeSummary / ShowMailToSend）",
+      "group": "home",
+      "readonly": true,
+      "warning": null,
+      "fields": [
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    },
+    {
+      "name": "query_vir_stock",
+      "title": "齐套查询",
+      "description": "【齐套专用】虚拟齐套（ShowVirStock）；勿与缺料 query_shortage 混淆",
+      "group": "pmc",
+      "readonly": true,
+      "warning": "这是齐套专用工具，不是缺料。缺料请用 query_shortage。",
+      "fields": [
+        {
+          "key": "WorkOrderNo",
+          "label": "工令号",
+          "type": "text"
+        },
+        {
+          "key": "CustOrderNo",
+          "label": "客户单号",
+          "type": "text"
+        },
+        {
+          "key": "OrderNo",
+          "label": "订单号",
+          "type": "text"
+        },
+        {
+          "key": "PartNo",
+          "label": "料号",
+          "type": "text"
+        },
+        {
+          "key": "keyword",
+          "label": "关键词",
+          "type": "text",
+          "placeholder": "单号/料号/客户等"
+        },
+        {
+          "key": "limit",
+          "label": "条数",
+          "type": "number",
+          "default": 50
+        },
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    },
+    {
+      "name": "query_customer_crg",
+      "title": "客户对账收款",
+      "description": "按客户查对账/开票/收款（ShowCustomerCrgByCustomer）",
+      "group": "finance",
+      "readonly": true,
+      "warning": null,
+      "fields": [
+        {
+          "key": "CustomerNo",
+          "label": "客户编号",
+          "type": "text"
+        },
+        {
+          "key": "keyword",
+          "label": "关键词",
+          "type": "text",
+          "placeholder": "单号/料号/客户等"
+        },
+        {
+          "key": "limit",
+          "label": "条数",
+          "type": "number",
+          "default": 50
+        },
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    },
+    {
+      "name": "query_supplier_crp",
+      "title": "供应商对账付款",
+      "description": "按供应商查对账/收票/付款（ShowSupplierCrpBySupplier）",
+      "group": "finance",
+      "readonly": true,
+      "warning": null,
+      "fields": [
+        {
+          "key": "SupplierNo",
+          "label": "供应商编号",
+          "type": "text"
+        },
+        {
+          "key": "keyword",
+          "label": "关键词",
+          "type": "text",
+          "placeholder": "单号/料号/客户等"
+        },
+        {
+          "key": "limit",
+          "label": "条数",
+          "type": "number",
+          "default": 50
+        },
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    },
+    {
+      "name": "lookup_erp_api",
+      "title": "查 API 目录",
+      "description": "一句话检索 ERP 该用哪个 ApiName（TbApiParams+参数+示例），便于生成调用脚本",
+      "group": "meta",
+      "readonly": true,
+      "warning": null,
+      "fields": [
+        {
+          "key": "query",
+          "label": "一句话需求",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    },
+    {
+      "name": "query_delivery_overdue",
+      "title": "销售欠交逾期",
+      "description": "销售欠交/逾期/即将到期（Deadline+ToDeliveryQty；非齐套）",
+      "group": "sales",
+      "readonly": true,
+      "warning": null,
+      "fields": [
+        {
+          "key": "date_from",
+          "label": "开始日期",
+          "type": "date"
+        },
+        {
+          "key": "date_to",
+          "label": "结束日期",
+          "type": "date"
+        },
+        {
+          "key": "CustomerNo",
+          "label": "客户编号",
+          "type": "text"
+        },
+        {
+          "key": "keyword",
+          "label": "关键词",
+          "type": "text",
+          "placeholder": "单号/料号/客户等"
+        },
+        {
+          "key": "limit",
+          "label": "条数",
+          "type": "number",
+          "default": 50
+        },
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    },
+    {
+      "name": "query_dispatch_load",
+      "title": "派工负荷",
+      "description": "派工/在制负荷与交期延误（按工序/制造部门汇总）",
+      "group": "pmc",
+      "readonly": true,
+      "warning": null,
+      "fields": [
+        {
+          "key": "date_from",
+          "label": "开始日期",
+          "type": "date"
+        },
+        {
+          "key": "date_to",
+          "label": "结束日期",
+          "type": "date"
+        },
+        {
+          "key": "keyword",
+          "label": "关键词",
+          "type": "text",
+          "placeholder": "单号/料号/客户等"
+        },
+        {
+          "key": "limit",
+          "label": "条数",
+          "type": "number",
+          "default": 50
+        },
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    },
+    {
+      "name": "query_po_incoming",
+      "title": "在途采购催料",
+      "description": "在途/未完成采购到货催料（DeliveryDate+OweQty）",
+      "group": "purchase",
+      "readonly": true,
+      "warning": null,
+      "fields": [
+        {
+          "key": "date_from",
+          "label": "开始日期",
+          "type": "date"
+        },
+        {
+          "key": "date_to",
+          "label": "结束日期",
+          "type": "date"
+        },
+        {
+          "key": "SupplierNo",
+          "label": "供应商编号",
+          "type": "text"
+        },
+        {
+          "key": "PartNo",
+          "label": "料号",
+          "type": "text"
+        },
+        {
+          "key": "keyword",
+          "label": "关键词",
+          "type": "text",
+          "placeholder": "单号/料号/客户等"
+        },
+        {
+          "key": "limit",
+          "label": "条数",
+          "type": "number",
+          "default": 50
+        },
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    },
+    {
+      "name": "explain_order",
+      "title": "一单全景",
+      "description": "一单全景：销售+物需+齐套+在途+品质摘要",
+      "group": "compose",
+      "readonly": true,
+      "warning": null,
+      "fields": [
+        {
+          "key": "CustOrderNo",
+          "label": "客户单号",
+          "type": "text"
+        },
+        {
+          "key": "OrderNo",
+          "label": "订单号",
+          "type": "text"
+        },
+        {
+          "key": "WorkOrderNo",
+          "label": "工令号",
+          "type": "text"
+        },
+        {
+          "key": "keyword",
+          "label": "关键词",
+          "type": "text",
+          "placeholder": "单号/料号/客户等"
+        },
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    },
+    {
+      "name": "get_exception_digest",
+      "title": "异常风险日报",
+      "description": "异常/风险日报：逾期/未齐套/缺料/品质/待收款 TopN",
+      "group": "compose",
+      "readonly": true,
+      "warning": null,
+      "fields": [
+        {
+          "key": "top_n",
+          "label": "TopN",
+          "type": "number",
+          "default": 10
+        },
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    },
+    {
+      "name": "list_collection_followups",
+      "title": "催款跟进",
+      "description": "待催收款清单+催款备注草稿（不发送）",
+      "group": "finance",
+      "readonly": true,
+      "warning": null,
+      "fields": [
+        {
+          "key": "CustomerNo",
+          "label": "客户编号",
+          "type": "text"
+        },
+        {
+          "key": "keyword",
+          "label": "关键词",
+          "type": "text",
+          "placeholder": "单号/料号/客户等"
+        },
+        {
+          "key": "limit",
+          "label": "条数",
+          "type": "number",
+          "default": 50
+        },
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    },
+    {
+      "name": "list_supplier_chase",
+      "title": "催料到货",
+      "description": "催供应商到货清单+沟通草稿（不发送）",
+      "group": "purchase",
+      "readonly": true,
+      "warning": null,
+      "fields": [
+        {
+          "key": "SupplierNo",
+          "label": "供应商编号",
+          "type": "text"
+        },
+        {
+          "key": "PartNo",
+          "label": "料号",
+          "type": "text"
+        },
+        {
+          "key": "keyword",
+          "label": "关键词",
+          "type": "text",
+          "placeholder": "单号/料号/客户等"
+        },
+        {
+          "key": "limit",
+          "label": "条数",
+          "type": "number",
+          "default": 50
+        },
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    },
+    {
+      "name": "suggest_deadline_change",
+      "title": "交期评估",
+      "description": "交期能否提前的只读评估（不写交期）",
+      "group": "sales",
+      "readonly": true,
+      "warning": null,
+      "fields": [
+        {
+          "key": "CustOrderNo",
+          "label": "客户单号",
+          "type": "text"
+        },
+        {
+          "key": "OrderNo",
+          "label": "订单号",
+          "type": "text"
+        },
+        {
+          "key": "target_date",
+          "label": "目标交期",
+          "type": "date"
+        },
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    },
+    {
+      "name": "query_warehouse_todo",
+      "title": "仓库待办",
+      "description": "仓库待入/待出/待盘（未过账）",
+      "group": "warehouse",
+      "readonly": true,
+      "warning": null,
+      "fields": [
+        {
+          "key": "keyword",
+          "label": "关键词",
+          "type": "text",
+          "placeholder": "单号/料号/客户等"
+        },
+        {
+          "key": "limit",
+          "label": "条数",
+          "type": "number",
+          "default": 50
+        },
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    },
+    {
+      "name": "compare_price_history",
+      "title": "采销价对照",
+      "description": "料号采/销历史价对照",
+      "group": "purchase",
+      "readonly": true,
+      "warning": null,
+      "fields": [
+        {
+          "key": "PartNo",
+          "label": "料号",
+          "type": "text"
+        },
+        {
+          "key": "date_from",
+          "label": "开始日期",
+          "type": "date"
+        },
+        {
+          "key": "date_to",
+          "label": "结束日期",
+          "type": "date"
+        },
+        {
+          "key": "limit",
+          "label": "条数",
+          "type": "number",
+          "default": 50
+        },
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    },
+    {
+      "name": "search_help",
+      "title": "业务口径帮助",
+      "description": "操作口径/说明书检索（齐套≠缺料等）",
+      "group": "meta",
+      "readonly": true,
+      "warning": null,
+      "fields": [
+        {
+          "key": "query",
+          "label": "问题",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    },
+    {
+      "name": "search_operation_manual",
+      "title": "操作手册",
+      "description": "系统操作指引/手册图文（怎么报工等，对齐 queryAI/ManualAI）",
+      "group": "meta",
+      "readonly": true,
+      "warning": "「怎么报工/怎么操作」请用本工具，不要只用 search_help。",
+      "fields": [
+        {
+          "key": "query",
+          "label": "操作问题",
+          "type": "text",
+          "required": true,
+          "placeholder": "如：怎么报工"
+        },
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    },
+    {
+      "name": "suggest_next_action",
+      "title": "下一步建议",
+      "description": "根据上下文建议下一步 1～3 个工具",
+      "group": "meta",
+      "readonly": true,
+      "warning": null,
+      "fields": [
+        {
+          "key": "context",
+          "label": "上下文",
+          "type": "textarea",
+          "required": true
+        },
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    },
+    {
+      "name": "run_business_playbook",
+      "title": "业务剧本",
+      "description": "业务剧本（如新单评审 BOM→库存→齐套→交期）",
+      "group": "meta",
+      "readonly": true,
+      "warning": null,
+      "fields": [
+        {
+          "key": "playbook",
+          "label": "剧本",
+          "type": "select",
+          "default": "new_order_review",
+          "options": [
+            {
+              "value": "new_order_review",
+              "label": "新单评审"
+            }
+          ]
+        },
+        {
+          "key": "CustOrderNo",
+          "label": "客户单号",
+          "type": "text"
+        },
+        {
+          "key": "OrderNo",
+          "label": "订单号",
+          "type": "text"
+        },
+        {
+          "key": "PartNo",
+          "label": "料号",
+          "type": "text"
+        },
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    },
+    {
+      "name": "whoami_erp",
+      "title": "身份与工具清单",
+      "description": "当前用户 AI 校验与 MCP 可做工具清单",
+      "group": "meta",
+      "readonly": true,
+      "warning": null,
+      "fields": [
+        {
+          "key": "note",
+          "label": "自由补充说明",
+          "type": "textarea",
+          "placeholder": "可选，拼进对话"
+        }
+      ]
+    }
+  ]
+}
