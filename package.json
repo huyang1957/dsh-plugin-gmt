@@ -1,6 +1,6 @@
 {
   "name": "dsh-plugin-gmt",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "固美特 ERP：在 DeepSeek Harness 中图形化使用 gmtMcp（侧栏功能树、工具表单、常用/历史、MCP/技能安装）",
   "type": "module",
   "main": "lib/index.js",
